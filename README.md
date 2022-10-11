@@ -17,4 +17,4 @@ moving gears and other mechanical objects. The point of the game is to get to
 the top of the machine where you complete the game by escaping the machine.
 there are many levels that progressively get harder. Please have fun!
 
-You can play the web version of this game at https://temperate-designs.github.io/platformer-1/.
+You can play the web version of this game at [https://temperate-designs.github.io/platformer-1/](https://temperate-designs.github.io/platformer-1/).
