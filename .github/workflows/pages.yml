@@ -35,7 +35,7 @@ jobs:
         with:
           channel: 'stable'
       - run: flutter pub get
-      - run: flutter build web
+      - run: flutter build web --base-href /platformer-1/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
