@@ -11,7 +11,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GameWidget(game: MyGame());
+    return MaterialApp(
+      home: DefaultTextStyle(
+        style: const TextStyle(
+          shadows: [Shadow(offset: Offset(2, 2))],
+          fontSize: 40,
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: 50,
+              color: Colors.blue,
+              child: const Center(child: Text('GEARS')),
+            ),
+            Expanded(child: GameWidget(game: MyGame())),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -31,9 +48,9 @@ class MyGame extends FlameGame {
 class Player extends PositionComponent {
   static final _paint = Paint()..color = const Color.fromARGB(255, 158, 77, 39);
   static final _outline = Paint()
-  ..color = const Color.fromARGB(99, 102, 255, 0)
-  ..style = PaintingStyle.stroke
-  ..strokeWidth = 10;
+    ..color = const Color.fromARGB(99, 102, 255, 0)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 10;
 
   @override
   void render(Canvas canvas) {
