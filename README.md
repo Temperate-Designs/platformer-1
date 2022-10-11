@@ -1,6 +1,6 @@
 # Welcome to GEARS
 
-![Hacktoberfest Issues](https://img.shields.io/github/hacktoberfest/2022/Temperate-Designs/platformer-1)
+[![Hacktoberfest Issues](https://img.shields.io/github/hacktoberfest/2022/Temperate-Designs/platformer-1)](https://hacktoberfest.com/profile/)
 
 [![GitHub Issues](https://img.shields.io/github/issues/Temperate-Designs/platformer-1)](https://github.com/Temperate-Designs/platformer-1/issues)
 [![Github PRs](https://img.shields.io/github/issues-pr/Temperate-Designs/platformer-1)](https://github.com/Temperate-Designs/platformer-1/pulls)
