@@ -7,6 +7,7 @@
 
 [![Lint](https://github.com/Temperate-Designs/platformer-1/actions/workflows/lint.yml/badge.svg)](https://github.com/Temperate-Designs/platformer-1/actions/workflows/lint.yml)
 [![Flutter Testing](https://github.com/Temperate-Designs/platformer-1/actions/workflows/flutter.yaml/badge.svg)](https://github.com/Temperate-Designs/platformer-1/actions/workflows/flutter.yaml)
+[![Deploy static content to Pages](https://github.com/Temperate-Designs/platformer-1/actions/workflows/pages.yml/badge.svg)](https://github.com/Temperate-Designs/platformer-1/actions/workflows/pages.yml)
 
 ## Introduction
 
