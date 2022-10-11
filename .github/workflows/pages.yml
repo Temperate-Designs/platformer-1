@@ -4,6 +4,7 @@ on:
   workflow_run:
     workflows:
       - "Flutter Testing"
+      - "Lint"
     branches:
       - main
     types:
