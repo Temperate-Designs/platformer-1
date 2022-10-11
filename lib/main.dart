@@ -25,15 +25,16 @@ class MyGame extends FlameGame {
         ..height = 50
         ..anchor = Anchor.center,
     );
+    add(FpsTextComponent());
   }
 }
 
 class Player extends PositionComponent {
   static final _paint = Paint()..color = const Color.fromARGB(255, 158, 77, 39);
   static final _outline = Paint()
-  ..color = const Color.fromARGB(99, 102, 255, 0)
-  ..style = PaintingStyle.stroke
-  ..strokeWidth = 10;
+    ..color = const Color.fromARGB(99, 102, 255, 0)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 10;
 
   @override
   void render(Canvas canvas) {
