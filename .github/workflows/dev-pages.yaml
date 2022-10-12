@@ -1,12 +1,11 @@
-name: Flutter Testing
+name: Publish dev webapp
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_run:
+    workflows:
+      - "Flutter Testing"
+    types:
+      - completed
 
   workflow_dispatch:
 
@@ -48,22 +47,6 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v2
-
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-
-      - run: flutter pub get
-      - run: flutter test --verbose
-      - run: flutter build web --base-href /platformer-1/
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: webapp
-          path: './build/web'
-      #- name: DEBUG
-      #  with: ${this.runTimeUrl}_apis/pipelines/workflows/${this.workflowRun}/artifacts?api-version=6.0-preview
-
       - name: Get artifacts
         id: get_workflow_artifacts
         uses: octokit/request-action@v2.x
