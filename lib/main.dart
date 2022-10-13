@@ -11,7 +11,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GameWidget(game: MyGame());
+    return MaterialApp(
+      home: DefaultTextStyle(
+        style: const TextStyle(
+          shadows: [Shadow(offset: Offset(2, 2))],
+          fontSize: 40,
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: 50,
+              color: Colors.blue,
+              child: const Center(child: Text('GEARS')),
+            ),
+            Expanded(child: GameWidget(game: MyGame())),
+          ],
+        ),
+      ),
+    );
   }
 }
 
