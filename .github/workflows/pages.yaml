@@ -33,8 +33,10 @@ jobs:
         id: target_folder
         env:
           EVENT: ${{ toJSON(github.event) }}
+          WORKFLOW_RUN: ${{ toJSON(github.event.workflow_run) }}
         run: |
           echo ${EVENT} | python3 -m json.tool
+          echo ${WORKFLOW_RUN} | python3 -m json.tool
           if [[ ${{ github.event.number == null }} == true ]]; then
             target_folder=""
           else
