@@ -32,12 +32,12 @@ jobs:
       - name: Get target folder
         id: target_folder
         run: |
-          if [[ ${{ github.event.number == null }} ]]; then
+          if [[ ${{ github.event.number == null }} == true ]]; then
             target_folder=""
           else
             target_folder="pr-${{ github.event.number }}"
           fi
-          echo {target_folder}={${target_folder}} >> ${GITHUB_ENV}
+          echo target_folder=${target_folder} >> ${GITHUB_ENV}
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
