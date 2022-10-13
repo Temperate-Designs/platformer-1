@@ -50,5 +50,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-        with:
-          target-folder: ${{ github.event.number == null && '' || pr-${{ fromJSON(github.event.number) }} }}
