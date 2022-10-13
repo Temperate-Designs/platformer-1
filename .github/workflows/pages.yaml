@@ -4,8 +4,6 @@ on:
   workflow_run:
     workflows:
       - "Flutter Testing"
-    branches:
-      - main
     types:
       - completed
 
