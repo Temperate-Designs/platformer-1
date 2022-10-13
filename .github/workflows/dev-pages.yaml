@@ -9,8 +9,12 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  pull-requests: read
+  pages: write
+
 jobs:
-  build:
+  dev_webapp:
     runs-on: ubuntu-latest
 
     steps:
