@@ -24,3 +24,10 @@ jobs:
 
       - run: flutter pub get
       - run: flutter test --verbose
+      - run: flutter build web --base-href /platformer-1/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: webapp
+          path: './build/web'
