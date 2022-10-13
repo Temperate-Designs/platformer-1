@@ -42,4 +42,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v1
         with:
-          target-folder: ${{ github.event.number == null || format('pr-{1}', fromJSON(github.event.number)) }}
+          target-folder: ${{ github.event.number == null && '' || format('pr-{1}', fromJSON(github.event.number)) }}
