@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           children: [
             Container(
               height: 50,
-              color: Colors.blue,
+              color: Colors.red,
               child: const Center(
                   child: Text(
                 'GEARS',
