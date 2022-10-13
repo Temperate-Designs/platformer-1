@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: DefaultTextStyle(
         style: const TextStyle(
-          shadows: [Shadow(offset: Offset(2, 2))],
+          shadows: [Shadow(offset: Offset(4, 4))],
           fontSize: 40,
         ),
         child: Column(
