@@ -32,7 +32,7 @@ jobs:
       - name: Get target folder
         id: target_folder
         run: |
-          echo ${{ toJSON(github.event) }}
+          echo "${{ toJSON(github.event) }}"
           if [[ ${{ github.event.number == null }} == true ]]; then
             target_folder=""
           else
