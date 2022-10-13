@@ -23,7 +23,7 @@ concurrency:
 jobs:
   deploy:
     environment:
-      name: ${{ github.event.number == null && 'github-pages' || format('pr-{1}', fromJSON(github.event.number)) }}
+      name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
@@ -43,3 +43,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+        with:
+          target-folder: ${{ github.event.number == null format('pr-{1}', fromJSON(github.event.number)) }}
