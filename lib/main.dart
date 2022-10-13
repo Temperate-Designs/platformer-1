@@ -22,7 +22,13 @@ class MyApp extends StatelessWidget {
             Container(
               height: 50,
               color: Colors.blue,
-              child: const Center(child: Text('GEARS')),
+              child: const Center(
+                  child: Text(
+                'GEARS',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              )),
             ),
             Expanded(child: GameWidget(game: MyGame())),
           ],
