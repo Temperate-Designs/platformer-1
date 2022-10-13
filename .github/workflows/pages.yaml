@@ -37,6 +37,7 @@ jobs:
           PULL_REQUESTS: ${{ toJSON(github.event.workflow_run.pull_requests) }}
           HAS_PULL_REQUEST: ${{ toJSON(github.event.workflow_run.pull_requests[0]) }}
         run: |
+          set -x
           echo ${PULL_REQUESTS} | python3 -m json.tool
           if [[ ${HAS_PULL_REQUEST} == null ]]; then
             target_folder=""
