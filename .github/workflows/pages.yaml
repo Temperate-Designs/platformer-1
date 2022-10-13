@@ -35,10 +35,12 @@ jobs:
           EVENT: ${{ toJSON(github.event) }}
           WORKFLOW_RUN: ${{ toJSON(github.event.workflow_run) }}
           PULL_REQUESTS: ${{ toJSON(github.event.workflow_run.pull_requests) }}
+          HAS_PULL_REQUEST: ${{ toJSON(github.event.workflow_run.pull_requests[0]) }}
         run: |
           echo ${EVENT} | python3 -m json.tool
           echo ${WORKFLOW_RUN} | python3 -m json.tool
           echo ${PULL_REQUESTS} | python3 -m json.tool
+          echo ${HAS_PULL_REQUESTS} | python3 -m json.tool
           if [[ ${{ github.event.number == null }} == true ]]; then
             target_folder=""
           else
