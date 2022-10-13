@@ -56,47 +56,9 @@ jobs:
       - run: flutter pub get
       - run: flutter test --verbose
       - run: flutter build web --base-href /platformer-1/
+
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: webapp
           path: './build/web'
-      #- name: DEBUG
-      #  with: ${this.runTimeUrl}_apis/pipelines/workflows/${this.workflowRun}/artifacts?api-version=6.0-preview
-
-      - name: Get artifacts
-        id: get_workflow_artifacts
-        uses: octokit/request-action@v2.x
-        with:
-          route: GET /repos/{repository}/actions/runs/{run_id}/artifacts
-          repository: ${{ github.repository }}
-          run_id: ${{ toJSON(github.run_id) }}
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-
-      - name: Print artifacts
-        env:
-          artifacts: ${{ toJSON(steps.get_workflow_artifacts.outputs) }}
-        run: echo "${artifacts}"
-
-      - name: Get pull request ref
-        id: get_pull_request_ref
-        uses: octokit/request-action@v2.x
-        with:
-          route: GET /repos/{repository}/pulls/{pull_number}
-          repository: ${{ github.repository }}
-          pull_number: ${{ fromJSON(github.event.number) }}
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-
-      - name: Create deployment
-        id: create_deployment
-        uses: octokit/request-action@v2.x
-        with:
-          route: POST /repos/:repository/pages/deployments
-          repository: ${{ github.repository }}
-          ref: ${{ fromJson(steps.get_pull_request_ref.outputs.data).head.ref }}
-          environment: dev-${{ fromJSON(github.event.number) }}
-          auto_merge: false
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
