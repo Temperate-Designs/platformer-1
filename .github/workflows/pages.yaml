@@ -42,6 +42,7 @@ jobs:
           if [[ ${HAS_PULL_REQUEST} == null ]]; then
             target_folder=""
           else
+            echo ${HAS_PULL_REQUEST} | python3 -m json.tool
             target_folder="pr-${{ github.event.number }}"
           fi
           echo target_folder=${target_folder} >> ${GITHUB_ENV}
