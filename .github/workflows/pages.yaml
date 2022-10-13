@@ -34,7 +34,7 @@ jobs:
         env:
           EVENT: ${{ toJSON(github.event) }}
         run: |
-          echo ${EVENT}
+          echo ${EVENT} | python3 -m json.tool
           if [[ ${{ github.event.number == null }} == true ]]; then
             target_folder=""
           else
