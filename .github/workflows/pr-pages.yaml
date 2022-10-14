@@ -64,8 +64,10 @@ jobs:
       - name: Get target folder
         id: target_folder
         env:
+          EVENT: ${{ toJSON(github.event) }}
           PR_NUMBER: ${{ toJSON(github.event.workflow_run.pull_requests[0].number) }}
         run: |
+          set -x
           if [[ ${PR_NUMBER} == null ]]; then
             target_folder=""
           else
