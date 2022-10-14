@@ -88,6 +88,12 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
+      - name: Get pull request commit
+        env:
+          PR: ${{ toJSON(steps.pull_request_details.outputs.data) }}
+        run: |
+          echo "here"
+
       - name: Checkout
         uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
