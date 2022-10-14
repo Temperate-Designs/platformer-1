@@ -90,13 +90,14 @@ jobs:
 
       - name: Get pull request commit
         env:
-          PR: ${{ steps.pull_request_details.outputs.data }}
           MERGE_COMMIT: ${{ fromJSON(steps.pull_request_details.outputs.data).merge_commit_sha }}
         run: |
-          echo ${MERGE_COMMIT}
+          echo MERGE_COMMIT=${MERGE_COMMIT} >> ${GITHUB_ENV}
 
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          ref: ${{ env.MERGE_COMMIT }}
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
