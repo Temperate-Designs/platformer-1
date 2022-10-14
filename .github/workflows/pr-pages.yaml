@@ -83,6 +83,7 @@ jobs:
         uses: octokit/request-action@v2.x
         with:
           route: GET /repos/:repository/pulls/:pr_number
+          repository: ${{ github.repository }}
           pr_number: ${{ env.PR_NUMBER }}
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
