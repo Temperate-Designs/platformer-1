@@ -31,17 +31,6 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup Pages
         uses: actions/configure-pages@v2
-      - name: Get target folder
-        id: target_folder
-        env:
-          PR_NUMBER: ${{ toJSON(github.event.workflow_run.pull_requests[0].number) }}
-        run: |
-          if [[ ${PR_NUMBER} == null ]]; then
-            target_folder=""
-          else
-            target_folder="pr-${PR_NUMBER}"
-          fi
-          echo target_folder=${target_folder} >> ${GITHUB_ENV}
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
@@ -52,6 +41,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: ./build/web
+          clean: false
 
         #- name: Upload artifact
         #  uses: actions/upload-pages-artifact@v1
