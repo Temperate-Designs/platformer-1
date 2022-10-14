@@ -1,0 +1,16 @@
+name: Remove pull request deployment
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  remove:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check whether PR has deployment
+        run: true
+      - name: Delete deployment
+        run: true
+      - name: Clean `gh-pages`
+        run: true
