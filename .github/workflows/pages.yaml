@@ -47,12 +47,18 @@ jobs:
           channel: 'stable'
       - run: flutter pub get
       - run: flutter build web --base-href /platformer-1/
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: './build/web'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
-        with:
-          target-folder: ${{ env.target_folder }}
+          folder: ./build/web
+
+        #- name: Upload artifact
+        #  uses: actions/upload-pages-artifact@v1
+        #  with:
+        #    path: './build/web'
+        #- name: Deploy to GitHub Pages
+        #  id: deployment
+        #  uses: actions/deploy-pages@v1
+        #  with:
+        #    target-folder: ${{ env.target_folder }}
