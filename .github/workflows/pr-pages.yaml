@@ -71,7 +71,7 @@ jobs:
           target_folder=""
           target_url=https://temperate-designs.github.io/platformer-1/
           if [[ ${PR_NUMBER} != null ]]; then
-            target_folder="dev/pr-${PR_NUMBER}"
+            target_folder="dev/pr-${PR_NUMBER}/"
             target_url=${target_url}/${target_folder}
           fi
           echo target_folder=${target_folder} >> ${GITHUB_ENV}
