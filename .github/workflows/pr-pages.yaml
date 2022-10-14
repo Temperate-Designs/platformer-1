@@ -4,6 +4,11 @@ on:
   issue_comment:
     types: [created]
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   deploy-check:
     runs-on: ubuntu-latest
@@ -61,13 +66,31 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
-      - name: deploy the pull request
+      - name: Get target folder
+        id: target_folder
+        env:
+          PR_NUMBER: ${{ toJSON(github.event.workflow_run.pull_requests[0].number) }}
         run: |
-          # deployment logic goes here
-          sleep 10
+          if [[ ${PR_NUMBER} == null ]]; then
+            target_folder=""
+          else
+            target_folder="dev/pr-${PR_NUMBER}"
+          fi
+          echo target_folder=${target_folder} >> ${GITHUB_ENV}
 
-          # instead we randomly succeed or fail the deployment
-          exit $(( $RANDOM % 10 >= 5 ))
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter build web --base-href /platformer-1/
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ./build/web
+          target-folder: ${{ env.target_folder }}
 
       - name: set deployment status to success
         id: successful_deployment
