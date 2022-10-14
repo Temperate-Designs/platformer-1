@@ -90,9 +90,10 @@ jobs:
 
       - name: Get pull request commit
         env:
-          PR: ${{ toJSON(steps.pull_request_details.outputs.data) }}
+          PR: ${{ fromJSON(steps.pull_request_details.outputs.data) }}
+          MERGE_COMMIT: ${{ toJSON(steps.pull_request_details.outputs.data).merge_commit }}
         run: |
-          echo "here"
+          echo ${MERGE_COMMIT}
 
       - name: Checkout
         uses: actions/checkout@v3
