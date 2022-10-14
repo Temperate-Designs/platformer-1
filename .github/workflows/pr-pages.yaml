@@ -68,12 +68,14 @@ jobs:
           PR_NUMBER: ${{ toJSON(github.event.issue.number) }}
         run: |
           set -x
-          if [[ ${PR_NUMBER} == null ]]; then
-            target_folder=""
-          else
+          target_folder=""
+          target_url=https://temperate-designs.github.io/platformer-1/
+          if [[ ${PR_NUMBER} != null ]]; then
             target_folder="dev/pr-${PR_NUMBER}"
+            target_url=${target_url}/${target_folder}
           fi
           echo target_folder=${target_folder} >> ${GITHUB_ENV}
+          echo target_url=${target_url} >> ${GITHUB_ENV}
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -81,7 +83,7 @@ jobs:
         with:
           channel: 'stable'
       - run: flutter pub get
-      - run: flutter build web --base-href /platformer-1/
+      - run: flutter build web --base-href /platformer-1/${{ env.target_folder }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
@@ -98,7 +100,7 @@ jobs:
           repository: ${{ github.repository }}
           deployment: ${{ fromJson(steps.create_deployment.outputs.data).id }}
           environment: dev
-          environment_url: https://example.com
+          environment_url: ${{ env.target_url }}
           log_url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
           mediaType: '{"previews": ["ant-man"]}'
           state: success
@@ -114,7 +116,7 @@ jobs:
           repository: ${{ github.repository }}
           deployment: ${{ fromJson(steps.create_deployment.outputs.data).id }}
           environment: dev
-          environment_url: https://example.com
+          environment_url: ${{ env.target_url }}
           log_url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
           mediaType: '{"previews": ["ant-man"]}'
           state: failure
