@@ -76,6 +76,14 @@ jobs:
           fi
           echo target_folder=${target_folder} >> ${GITHUB_ENV}
           echo target_url=${target_url} >> ${GITHUB_ENV}
+          echo PR_NUMBER=${PR_NUMBER} >> ${GITHUB_ENV}
+
+      - name: Get Pull Request
+        id: pull_request_details
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/:repository/pulls/:pr_number
+          pr_number: ${{ env.PR_NUMBER }}
 
       - name: Checkout
         uses: actions/checkout@v3
