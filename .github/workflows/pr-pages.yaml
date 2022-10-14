@@ -91,7 +91,7 @@ jobs:
       - name: Get pull request commit
         env:
           PR: ${{ steps.pull_request_details.outputs.data }}
-          MERGE_COMMIT: ${{ steps.pull_request_details.outputs.data.merge_commit_sha }}
+          MERGE_COMMIT: ${{ fromJSON(steps.pull_request_details.outputs.data).merge_commit_sha }}
         run: |
           echo ${MERGE_COMMIT}
 
