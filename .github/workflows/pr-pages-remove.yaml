@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check whether PR has deployment
+        env:
+          EVENT: ${{ toJSON(github.event) }}
         run: true
       - name: Delete deployment
         run: true
