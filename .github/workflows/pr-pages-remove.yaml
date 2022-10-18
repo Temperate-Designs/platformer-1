@@ -5,6 +5,9 @@ on:
     types: [closed]
   schedule:
     - cron: '0 0 * * *'
+  push:
+    paths:
+      - .github/workflows/*.yaml
   workflow_dispatch:
 
 jobs:
@@ -14,8 +17,30 @@ jobs:
       - name: Check whether PR has deployment
         env:
           EVENT: ${{ toJSON(github.event) }}
-        run: true
+        run: |
+          set -eux
+
+      - name: Get currently open pull requests
+        id: pull_requests
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/:repository/pulls
+          repository: ${{ github.repository }}
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Check out `gh-pages`
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+
+      - name: Get currently deployed pull requests
+        run: |
+          set -eux
+          ls -lh dev
+
       - name: Delete deployment
         run: true
+
       - name: Clean `gh-pages`
         run: true
