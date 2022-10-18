@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  remove:
+  remove_stale_deployments:
     runs-on: ubuntu-latest
     steps:
       - name: Check whether PR has deployment
@@ -34,9 +34,21 @@ jobs:
         with:
           ref: gh-pages
 
+      - name: Get deployments
+        id: deployments
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/:repository/deployments
+          repository: ${{ github.repository }}
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
       - name: Get currently deployed pull requests
+        env:
+          DEPLOYMENTS: ${{ steps.deployments.outputs.data }}
         run: |
-          set -eux
+          echo ${DEPLOYMENTS} \
+            | jq '.[] | select(.environment == "dev") | "\( .ref ) \( .description ) \( .id )"'
           ls -lh dev
 
       - name: Delete deployment
