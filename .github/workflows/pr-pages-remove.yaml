@@ -5,9 +5,6 @@ on:
     types: [closed]
   schedule:
     - cron: '0 0 * * *'
-  push:
-    paths:
-      - .github/workflows/*.yaml
   workflow_dispatch:
 
 jobs:
@@ -48,7 +45,7 @@ jobs:
           DEPLOYMENTS: ${{ steps.deployments.outputs.data }}
         run: |
           echo ${DEPLOYMENTS} \
-            | jq '.[] | select(.environment == "dev") | "\( .ref ) \( .description ) \( .id )"'
+            | jq '.[] | select(.environment | match("dev")) | "\( .ref ) \( .description ) \( .id )"'
           ls -lh dev
 
       - name: Delete deployment
