@@ -51,8 +51,8 @@ jobs:
             | jq --raw-output '.[] | select(.environment | match("dev")) | "\( .ref ) \( .description ) \( .id )"')
 
           echo "deployments:"
-          for deployment in "${DEPLOYMENT_DETAILS[@]}"; do
-            echo "deployment: '${deployment}'"
+          for deployment in ${DEPLOYMENT_DETAILS[@]}; do
+            echo "deployment: ${deployment}"
             read -r details <<<${deployment}
             echo "ref:         ${details[0]}"
             echo "description: ${details[1]}"
