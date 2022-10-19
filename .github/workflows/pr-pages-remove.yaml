@@ -47,11 +47,19 @@ jobs:
         run: |
           readarray -t DEPLOYMENT_DETAILS < <(echo ${DEPLOYMENTS} \
             | jq --raw-output '.[] | select(.environment | match("dev")) | "\( .ref ) \( .description ) \( .id )"')
+
           echo "deployments:"
-          echo ${DEPLOYMENT_DETAILS[@]}
+          for deployment in "${DEPLOYMENT_DETAILS[@]}"; do
+            read -r details <<<${deployment}
+            echo "ref:         ${details[0]}"
+            echo "description: ${details[1]}"
+            echo "id:          ${details[2]}"
+          done
+
           echo "open pull requests"
           echo ${PULL_REQUESTS} \
             | jq --raw-output '.[].number'
+
           echo "deployed directories"
           ls -lh dev
 
