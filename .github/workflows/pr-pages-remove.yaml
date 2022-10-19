@@ -53,7 +53,7 @@ jobs:
           echo "deployments:"
           echo "${DEPLOYMENT_DETAILS[*]}"
 
-          for deployment in ${DEPLOYMENT_DETAILS[@]}; do
+          for deployment in "${DEPLOYMENT_DETAILS[@]}"; do
             echo "deployment: ${deployment}"
             read -r details <<<${deployment}
             if (( ${#details[@]} < 3 )); then
