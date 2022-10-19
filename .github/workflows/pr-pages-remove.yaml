@@ -54,9 +54,13 @@ jobs:
           for deployment in ${DEPLOYMENT_DETAILS[@]}; do
             echo "deployment: ${deployment}"
             read -r details <<<${deployment}
-            echo "ref:         ${details[0]}"
-            echo "description: ${details[1]}"
-            echo "id:          ${details[2]}"
+            if (( ${#details[@]} < 3 )); then
+              echo "I will remove malformed deployment ${deployment}"
+            else
+              echo "ref:         ${details[0]}"
+              echo "description: ${details[1]}"
+              echo "id:          ${details[2]}"
+            fi
           done
 
           echo "open pull requests"
