@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -58,6 +59,12 @@ class Player extends PositionComponent {
     ..color = const Color.fromARGB(99, 102, 255, 0)
     ..style = PaintingStyle.stroke
     ..strokeWidth = 10;
+
+  Player() {
+    if (kDebugMode) {
+      debugMode = true;
+    }
+  }
 
   @override
   void render(Canvas canvas) {
