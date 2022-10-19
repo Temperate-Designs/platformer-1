@@ -45,7 +45,10 @@ jobs:
           DEPLOYMENTS: ${{ steps.deployments.outputs.data }}
           PULL_REQUESTS: ${{ steps.pull_requests.outputs.data }}
         run: |
-          set -e -u -x
+          set -e -u
+
+          declare -a details
+          declare -a open_PRs
 
           readarray -t DEPLOYMENT_DETAILS < <(echo ${DEPLOYMENTS} \
             | jq --raw-output '.[] | select(.environment | match("dev")) | "\( .ref ) \( .description ) \( .id )"')
@@ -55,7 +58,7 @@ jobs:
 
           for deployment in "${DEPLOYMENT_DETAILS[@]}"; do
             echo "deployment: ${deployment}"
-            read -r details <<<${deployment}
+            read -r -a details <<< ${deployment}
             if (( ${#details[@]} < 3 )); then
               echo "I will remove malformed deployment ${deployment}"
             else
@@ -65,9 +68,9 @@ jobs:
             fi
           done
 
-          echo "open pull requests"
-          echo ${PULL_REQUESTS} \
-            | jq --raw-output '.[].number'
+          readarray -t open_PRs < <(echo ${PULL_REQUESTS} \
+            | jq --raw-output '.[].number')
+          echo "open pull requests ${open_PRs[@]}"
 
           echo "deployed directories"
           ls -lh dev
