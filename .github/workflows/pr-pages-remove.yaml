@@ -45,11 +45,14 @@ jobs:
           DEPLOYMENTS: ${{ steps.deployments.outputs.data }}
           PULL_REQUESTS: ${{ steps.pull_requests.outputs.data }}
         run: |
+          set -e -u -x
+
           readarray -t DEPLOYMENT_DETAILS < <(echo ${DEPLOYMENTS} \
             | jq --raw-output '.[] | select(.environment | match("dev")) | "\( .ref ) \( .description ) \( .id )"')
 
           echo "deployments:"
           for deployment in "${DEPLOYMENT_DETAILS[@]}"; do
+            echo "${deployment}"
             read -r details <<<${deployment}
             echo "ref:         ${details[0]}"
             echo "description: ${details[1]}"
