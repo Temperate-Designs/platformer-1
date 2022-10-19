@@ -45,12 +45,13 @@ jobs:
           DEPLOYMENTS: ${{ steps.deployments.outputs.data }}
           PULL_REQUESTS: ${{ steps.pull_requests.outputs.data }}
         run: |
+          readarray -t DEPLOYMENT_DETAILS < <(echo ${DEPLOYMENTS} \
+            | jq --raw-output '.[] | select(.environment | match("dev")) | "\( .ref ) \( .description ) \( .id )"')
           echo "deployments:"
-          echo ${DEPLOYMENTS} \
-            | jq '.[] | select(.environment | match("dev")) | "\( .ref ) \( .description ) \( .id )"'
+          echo ${DEPLOYMENT_DETAILS[@]}
           echo "open pull requests"
           echo ${PULL_REQUESTS} \
-            | jq '.[]'
+            | jq --raw-output '.[].number'
           echo "deployed directories"
           ls -lh dev
 
