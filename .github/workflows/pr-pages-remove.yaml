@@ -43,9 +43,15 @@ jobs:
       - name: Get currently deployed pull requests
         env:
           DEPLOYMENTS: ${{ steps.deployments.outputs.data }}
+          PULL_REQUESTS: ${{ steps.pull_requests.outputs.data }}
         run: |
+          echo "deployments:"
           echo ${DEPLOYMENTS} \
             | jq '.[] | select(.environment | match("dev")) | "\( .ref ) \( .description ) \( .id )"'
+          echo "open pull requests"
+          echo ${PULL_REQUESTS} \
+            | jq '.[]'
+          echo "deployed directories"
           ls -lh dev
 
       - name: Delete deployment
